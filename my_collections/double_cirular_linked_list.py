@@ -237,11 +237,11 @@ class DoubleCircularLinkedList(Generic[T]):
         if self._head is None:
             return
         current = self._head
-        while True:
+        yield current._element
+        current = current._next_node
+        while current != self._head:
             yield current._element
             current = current._next_node
-            if current == self._head:
-                break
 
     def __len__(self) -> int:
         """
@@ -260,13 +260,13 @@ class DoubleCircularLinkedList(Generic[T]):
         Returns a string representation of the double circular linked list.
         
         The string representation includes all elements in the list, separated by ' <-> '.
-        If the list is empty, it returns '<- Empty ->'.
+        If the list is empty, it returns ''.
         
         Returns:
             str: A string representation of the double circular linked list.
         """
         if self._head is None:
-            return "<- Empty ->"
+            return ""
         # Use __iter__ and join to convert to string
         return "<- " + " <-> ".join(map(str, self)) + " ->"
 
